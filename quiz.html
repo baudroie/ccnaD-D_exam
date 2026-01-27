@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>ドラッグアンドドロップ練習</title>
+  <link rel="stylesheet" href="css/index.css">
+
+
+
+</head>
+
+
+<body>
+  <header class="app-header">
+    <div class="nav-bar">
+      <a href="index.html"><button id="home" class="btn-nav">ホーム</button></a>
+      <a href="problems.html"><button id="show" class="btn-nav">一覧</button></a>
+      <a href="result.html"><button id="answer" class="btn-nav warn">終了</button></a>
+    </div>
+    <div class="title-bar">
+      <button id="prev-button" class="btn-control">前へ</button>
+      <h1>ドラッグアンドドロップ練習</h1>
+      <button id="nextt-button" class="btn-control">次へ</button>
+    </div>
+  </header>
+
+  <div id="quiz-container"></div>
+
+  <div class="action-bar">
+    <button id="check-answer" class="btn-main">解答</button>
+    <button id="show-answer" class="btn-sub">正解を表示</button>
+    <button id="reset-button" class="btn-sub">リセット</button>
+  </div>
+
+  <script src="js/quiz_data.js"></script>
+  <script src="js/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>CCNA 模擬試験</title>
+  <link rel="stylesheet" href="css/index.css">
+
+
+
+</head>
+
+
+<body>
+  <!-- Exam Start Screen Overlay -->
+  <div id="exam-start-overlay"
+    style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white;">
+    <h1 style="font-size: 2.5em; margin-bottom: 20px;">CCNA 模擬試験</h1>
+    <p style="font-size: 1.5em; margin-bottom: 10px; font-weight: bold;">全31問</p>
+    <p style="font-size: 1em; margin-bottom: 10px;">ランダムな順序で出題します</p>
+    <p style="font-size: 1em; margin-bottom: 30px; color: #ffcc00;">※途中で正解を確認することはできません</p>
+    <button id="exam-start-button"
+      style="padding: 15px 40px; font-size: 1.5em; background-color: #4CAF50; color: white; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">スタート</button>
+  </div>
+
+  <header class="app-header">
+    <div class="nav-bar">
+      <!-- Hide Home and List buttons in exam mode -->
+      <a href="index.html" style="display: none;"><button id="home" class="btn-nav">ホーム</button></a>
+      <a href="problems.html" style="display: none;"><button id="show" class="btn-nav">一覧</button></a>
+      <a href="result.html"><button id="answer" class="btn-nav warn">終了</button></a>
+    </div>
+    <div class="title-bar">
+      <button id="prev-button" class="btn-control">前へ</button>
+      <h1 id="exam-title">CCNA 模擬試験</h1>
+      <button id="nextt-button" class="btn-control">次へ</button>
+    </div>
+  </header>
+
+  <div id="quiz-container"></div>
+
+  <div class="action-bar">
+    <button id="check-answer" class="btn-main">解答</button>
+    <!-- Show Answer and Reset buttons removed for Exam Mode -->
+  </div>
+
+  <script src="js/quiz_data.js"></script>
+  <script src="js/index.js"></script>
+
+  <style>
+    /* CSS to hide app content when in "not started" state */
+    body.exam-not-started .app-header,
+    body.exam-not-started #quiz-container,
+    body.exam-not-started .action-bar,
+    body.exam-not-started h2 {
+      display: none !important;
+    }
+  </style>
+
+  <!-- Exam Start Logic -->
+  <script>
+    // Set initial state
+    document.body.classList.add('exam-not-started');
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const startButton = document.getElementById('exam-start-button');
+      const startOverlay = document.getElementById('exam-start-overlay');
+
+      if (startButton) {
+        startButton.addEventListener('click', function () {
+          console.log("[DEBUG] ====== Start button clicked ======");
+          document.body.classList.remove('exam-not-started');
+          if (startOverlay) startOverlay.style.display = 'none';
+
+          // Call the global function to start the exam
+          console.log("[DEBUG] Calling window.startExam, exists:", typeof window.startExam);
+          if (window.startExam) {
+            window.startExam();
+          } else {
+            console.error("[ERROR] window.startExam is not defined!");
+          }
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>

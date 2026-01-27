@@ -1,0 +1,137 @@
+<!-- problems.html -->
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>問題一覧</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 10px 10px;
+    }
+
+    a {
+      text-decoration: none;
+      color: blue;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    #home {
+      position: absolute;
+      top: 58px;
+      left: 200px;
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 2px solid #333;
+      border-radius: 5px;
+      background-color: white;
+      color: #333;
+      cursor: pointer;
+    }
+    }
+
+    #home:hover {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="index.html">
+    <button id="home">ホームに戻る</button>
+  </a>
+
+
+  <h1>問題一覧</h1>
+  <ul id="problem-list"></ul>
+
+  <script>
+    // 一覧に表示したい問題
+    const quizData = [
+
+      { "question": "Question 01 ", "link": "quiz.html?q=0" },
+      { "question": "Question 02 ", "link": "quiz.html?q=1" },
+      { "question": "Question 03 ", "link": "quiz.html?q=2" },
+      { "question": "Question 04 ", "link": "quiz.html?q=3" },
+      { "question": "Question 05 ", "link": "quiz.html?q=4" },
+      { "question": "Question 06 ", "link": "quiz.html?q=5" },
+      { "question": "Question 07 ", "link": "quiz.html?q=6" },
+      { "question": "Question 08 ", "link": "quiz.html?q=7" },
+      { "question": "Question 09 ", "link": "quiz.html?q=8" },
+      { "question": "Question 10 ", "link": "quiz.html?q=9" },
+      { "question": "Question 11 ", "link": "quiz.html?q=10" },
+      { "question": "Question 12 ", "link": "quiz.html?q=11" },
+      { "question": "Question 13 ", "link": "quiz.html?q=12" },
+      { "question": "Question 14 ", "link": "quiz.html?q=13" },
+      { "question": "Question 15 ", "link": "quiz.html?q=14" },
+      { "question": "Question 16 ", "link": "quiz.html?q=15" },
+      { "question": "Question 17 ", "link": "quiz.html?q=16" },
+      { "question": "Question 18 ", "link": "quiz.html?q=17" },
+      { "question": "Question 19 ", "link": "quiz.html?q=18" },
+      { "question": "Question 20 ", "link": "quiz.html?q=19" },
+      { "question": "Question 21 ", "link": "quiz.html?q=20" },
+      { "question": "Question 22 ", "link": "quiz.html?q=21" },
+      { "question": "Question 23 ", "link": "quiz.html?q=22" },
+      { "question": "Question 24 ", "link": "quiz.html?q=23" },
+      { "question": "Question 25 ", "link": "quiz.html?q=24" },
+      { "question": "Question 26 ", "link": "quiz.html?q=25" },
+      { "question": "Question 27 ", "link": "quiz.html?q=26" },
+      { "question": "Question 28 ", "link": "quiz.html?q=27" },
+      { "question": "Question 29 ", "link": "quiz.html?q=28" },
+      { "question": "Question 30 ", "link": "quiz.html?q=29" },
+      { "question": "Question 31 ", "link": "quiz.html?q=30" }
+    ];
+
+    const list = document.getElementById("problem-list");
+    quizData.forEach(q => {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = q.link;
+      a.textContent = q.question;
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+  </script>
+
+  <button id="restart-btn" style="
+      position: absolute;
+      under: 75px;
+      Left: 40px;
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 2px solid #333;
+      border-radius: 5px;
+      background-color: white;
+      color: #333;
+      cursor: pointer;
+">
+    最初の問題に戻る
+  </button>
+
+
+
+  <script>
+    document.getElementById("restart-btn").addEventListener("click", () => {
+      localStorage.removeItem("quizAnswers"); // 回答データを削除
+      window.location.href = "quiz.html";     // 最初の問題へ遷移
+    });
+  </script>
+
+
+</body>
+
+</html>
