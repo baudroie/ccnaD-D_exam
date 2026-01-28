@@ -10,9 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const qParam = urlParams.get("q");
 
   // If accessing exam.html, always set mode to "exam"
-  if (window.location.pathname.includes("exam.html")) {
+  if (window.location.pathname.includes("exam.html") || document.getElementById("exam-start-overlay")) {
     mode = "exam";
-    console.log("[DEBUG] Detected exam.html, mode set to:", mode);
+    console.log("[DEBUG] Detected exam.html (or overlay), mode set to:", mode);
   }
   console.log("[DEBUG] Initial mode:", mode);
 
@@ -289,6 +289,24 @@ document.addEventListener("DOMContentLoaded", () => {
       answerContainer.appendChild(choiceElem);
     });
 
+    // --- Enable Dropping Backward to Answer Container (Undo) ---
+    answerContainer.addEventListener("dragover", (event) => {
+      event.preventDefault();
+      answerContainer.classList.add("drag-over");
+    });
+    answerContainer.addEventListener("dragleave", () => {
+      answerContainer.classList.remove("drag-over");
+    });
+    answerContainer.addEventListener("drop", (event) => {
+      event.preventDefault();
+      answerContainer.classList.remove("drag-over");
+      const draggedIndex = event.dataTransfer.getData("text/plain");
+      const draggedElem = document.querySelector(`.draggable[data-index='${draggedIndex}']`);
+      if (draggedElem) {
+        answerContainer.appendChild(draggedElem);
+      }
+    });
+
     quizContainer.appendChild(answerContainer);
 
     const dropZoneContainer = document.createElement("div");
@@ -323,7 +341,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const draggedIndex = event.dataTransfer.getData("text/plain");
             const draggedElem = document.querySelector(`.draggable[data-index='${draggedIndex}']`);
 
-            if (dropZone.querySelector(".draggable") === null) {
+            if (draggedElem) {
+              const existingDraggable = dropZone.querySelector(".draggable");
+              if (existingDraggable) {
+                // Swap: Move existing item back to answer container
+                answerContainer.appendChild(existingDraggable);
+              }
               dropZone.appendChild(draggedElem);
             }
 
@@ -360,7 +383,12 @@ document.addEventListener("DOMContentLoaded", () => {
           const draggedIndex = event.dataTransfer.getData("text/plain");
           const draggedElem = document.querySelector(`.draggable[data-index='${draggedIndex}']`);
 
-          if (dropZone.querySelector(".draggable") === null) {
+          if (draggedElem) {
+            const existingDraggable = dropZone.querySelector(".draggable");
+            if (existingDraggable) {
+              // Swap: Move existing item back to answer container
+              answerContainer.appendChild(existingDraggable);
+            }
             dropZone.appendChild(draggedElem);
           }
           dropZone.classList.remove("drag-over");
